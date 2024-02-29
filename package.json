@@ -1,10 +1,10 @@
 {
   "name": "s3-empty-bucket",
-  "version": "1.0.0-alpha.0",
+  "version": "1.0.0-alpha.1",
   "description": "",
   "main": "dist/s3-empty-bucket.js",
   "scripts": {
-  "build": "make",
+    "build": "make",
     "lint": "make lint",
     "lint:fix": "make lint-fix",
     "test": "make test",
@@ -35,5 +35,7 @@
     "@liquid-labs/sdlc-resource-eslint": "file:.yalc/@liquid-labs/sdlc-resource-eslint",
     "@liquid-labs/sdlc-resource-jest": "^1.0.0-alpha.7"
   },
-  "_comply": { "orgKey": "@liquid-labs" }
+  "_comply": {
+    "orgKey": "@liquid-labs"
+  }
 }
