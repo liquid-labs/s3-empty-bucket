@@ -1,0 +1,1 @@
+So, there is no SDK "empty bucket". There is a `DeleteObjectsCommand`, which will delete multiple objects at once. However, you have to list each object. The best solution I've found is to least all tho objects to build up a list of every object, then send a single `DeleteObjectsCommand`

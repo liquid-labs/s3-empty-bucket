@@ -4,7 +4,19 @@
   "description": "",
   "main": "dist/s3-empty-bucket.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "build": "make",
+    "lint": "make lint",
+    "lint:fix": "make lint-fix",
+    "test": "make test",
+    "prepack": "make build",
+    "preversion": "npm test && make lint",
+    "qa": "make qa"
+  },
+  "bin": {
+    "s3-empty-bucket": "./dist/s3-empty-bucket-cli-exec.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   },
   "keywords": [],
   "author": "Zane Rockenbaugh <zane@liquid-labs.com>",
@@ -13,5 +25,15 @@
   "bugs": {
     "url": "https://github.com/liquid-labs/s3-empty-bucket/issues"
   },
-  "homepage": "https://github.com/liquid-labs/s3-empty-bucket#readme"
+  "homepage": "https://github.com/liquid-labs/s3-empty-bucket#readme",
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.525.0",
+    "@aws-sdk/credential-providers": "^3.525.0"
+  },
+  "devDependencies": {
+    "@liquid-labs/sdlc-resource-babel-and-rollup": "^1.0.0-alpha.8",
+    "@liquid-labs/sdlc-resource-eslint": "file:.yalc/@liquid-labs/sdlc-resource-eslint",
+    "@liquid-labs/sdlc-resource-jest": "^1.0.0-alpha.7"
+  },
+  "_comply": { "orgKey": "@liquid-labs" }
 }
