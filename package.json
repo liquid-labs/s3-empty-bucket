@@ -4,10 +4,19 @@
   "description": "",
   "main": "dist/s3-empty-bucket.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "build": "make",
+    "lint": "make lint",
+    "lint:fix": "make lint-fix",
+    "test": "make test",
+    "prepack": "make build",
+    "preversion": "npm test && make lint",
+    "qa": "make qa"
   },
   "bin": {
     "s3-empty-bucket": "./dist/s3-empty-bucket-cli-exec.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   },
   "keywords": [],
   "author": "Zane Rockenbaugh <zane@liquid-labs.com>",
