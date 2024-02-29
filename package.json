@@ -34,5 +34,6 @@
     "@liquid-labs/sdlc-resource-babel-and-rollup": "^1.0.0-alpha.8",
     "@liquid-labs/sdlc-resource-eslint": "file:.yalc/@liquid-labs/sdlc-resource-eslint",
     "@liquid-labs/sdlc-resource-jest": "^1.0.0-alpha.7"
-  }
+  },
+  "_comply": { "orgKey": "@liquid-labs" }
 }
