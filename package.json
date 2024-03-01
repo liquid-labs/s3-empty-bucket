@@ -1,6 +1,6 @@
 {
   "name": "s3-empty-bucket",
-  "version": "1.0.0-alpha.2",
+  "version": "1.0.0-alpha.3",
   "description": "Library and CLI to quickly empty AWS S3 buckets.",
   "main": "dist/s3-empty-bucket.js",
   "scripts": {
