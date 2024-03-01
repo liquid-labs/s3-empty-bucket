@@ -20,7 +20,7 @@ const s3EmptyBucket = () => {
 
   const credentials = getCredentials({ ssoProfile : profile })
   const s3Client = new S3Client({ credentials })
-  
+
   emptyBucket({ bucketName, s3Client, verbose : !quiet })
 }
 
