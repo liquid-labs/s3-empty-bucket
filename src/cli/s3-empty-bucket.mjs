@@ -28,7 +28,13 @@ const cliSpec = {
 }
 
 const s3EmptyBucket = async () => {
-  const options = commandLineArgs(cliSpec.mainOptions)
+  let options
+  try {
+    options = commandLineArgs(cliSpec.mainOptions)
+  }
+  catch (e) {
+    handleError(e, false /* do not throw error */)
+  }
   const { bucketName, document: doDocument, help, profile, quiet } = options
   const throwError = options['throw-error']
 
@@ -47,14 +53,29 @@ const s3EmptyBucket = async () => {
 
     await emptyBucket({ bucketName, s3Client, verbose : !quiet })
   } catch (e) {
-    if (throwError === true) {
-      throw e
-    } else if (e.name === 'CredentialsProviderError') {
-      process.stderr.write("Could not authenticate with AWS. You must either:\n\n1) (preferred) Create a user in the IAM Identity Center and use the command 'aws aws sso login' or 'aws sso login --profile your-profile-name' and excecute 's3-empty-bucket your-bucket-name --profile your-profile-name'.\n2) Generate API keys and place in the '~/.aws/credentials' file.\n\n")
-    } else {
-      process.stderr.write(e.message + '\n')
-    }
+    handleError(e, throwError)
   }
+}
+
+const handleError = (e, throwError) => {
+  let errorCode = 2
+  if (throwError === true) {
+    throw e
+  }
+  else if (e.name === 'UNKNOWN_OPTION') {
+    process.stderr.write(`Unknown option: ${e.optionName}\n\n`)
+    handleHelp()
+    errorCode = 2
+  }
+  else if (e.name === 'CredentialsProviderError') {
+    process.stderr.write("Could not authenticate with AWS. You must either:\n\n1) (preferred) Create a user in the IAM Identity Center and use the command 'aws aws sso login' or 'aws sso login --profile your-profile-name' and excecute 's3-empty-bucket your-bucket-name --profile your-profile-name'.\n2) Generate API keys and place in the '~/.aws/credentials' file.\n\n")
+    errorCode = 3
+  }
+  else {
+    process.stderr.write(e.message + '\n')
+    errorCode = 4
+  }
+  process.exit(errorCode)
 }
 
 const handleHelp = () => {
