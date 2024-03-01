@@ -12,8 +12,7 @@ const s3EmptyBucket = async () => {
   let options
   try {
     options = commandLineArgs(cliSpec.mainOptions)
-  }
-  catch (e) {
+  } catch (e) {
     handleError(e, false /* do not throw error */)
   }
   const { bucketName, document: doDocument, help, profile, quiet } = options
@@ -22,8 +21,7 @@ const s3EmptyBucket = async () => {
   if (help === true || Object.keys(options).length === 0) {
     handleHelp()
     return
-  }
-  else if (doDocument === true) {
+  } else if (doDocument === true) {
     console.log(commandLineDocumentation(cliSpec, { sectionDepth : 2, title : 'CLI command reference' }))
     return
   }
@@ -42,21 +40,18 @@ const handleError = (e, throwError) => {
   let errorCode = 2
   if (throwError === true) {
     throw e
-  }
-  else if (e.name === 'UNKNOWN_OPTION') {
+  } else if (e.name === 'UNKNOWN_OPTION') {
     process.stderr.write(`Unknown option: ${e.optionName}\n\n`)
     handleHelp()
     errorCode = 2
-  }
-  else if (e.name === 'CredentialsProviderError') {
+  } else if (e.name === 'CredentialsProviderError') {
     process.stderr.write("Could not authenticate with AWS. You must either:\n\n1) (preferred) Create a user in the IAM Identity Center and use the command 'aws aws sso login' or 'aws sso login --profile your-profile-name' and excecute 's3-empty-bucket your-bucket-name --profile your-profile-name'.\n2) Generate API keys and place in the '~/.aws/credentials' file.\n\n")
     errorCode = 3
-  }
-  else {
+  } else {
     process.stderr.write(e.message + '\n')
     errorCode = 4
   }
-  process.exit(errorCode)
+  process.exit(errorCode) // eslint-disable-line no-process-exit
 }
 
 const handleHelp = () => {
@@ -66,9 +61,9 @@ const handleHelp = () => {
       header  : 'Usage',
       content : 's3-empty-bucket <options> [s3-bucket-name]'
     },
-    { 
-      header : 'Options', 
-      content : cliSpec.mainOptions.map(({ name, description }) => ({ name, summary : description })) 
+    {
+      header  : 'Options',
+      content : cliSpec.mainOptions.map(({ name, description }) => ({ name, summary : description }))
     }
   ]
   process.stdout.write(commandLineUsage(sections) + '\n')

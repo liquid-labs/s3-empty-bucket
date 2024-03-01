@@ -51,13 +51,18 @@ s3-empty-bucket my-bucket-name # --profile your-sso-profile
 _API generated with [dmd-readme-api](https://www.npmjs.com/package/dmd-readme-api)._
 
 <a id="emptyBucket"></a>
-### `emptyBucket()`
+### `emptyBucket(options)`
 
 Empties AWS S3 bucket.
 
-**Parameter**: `string` options.bucketName - The name of the bucket to empty.  
-**Parameter**: (object} options.s3Client) - Authenticated `S3Client`.  
-**Parameter**: `boolean` options.verbose - When true, will report actions to `process.stdout`.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| options | `object` | The destructured options object. |
+| options.bucketName | `string` | The name of the bucket to empty. |
+| options.s3Client | `object` | Authenticated `S3Client`. |
+| options.verbose | `boolean` | When true, will report actions to `process.stdout`. |
+
 
 [**Source code**](./src/lib/s3-empty-bucket.mjs#L10)
 
