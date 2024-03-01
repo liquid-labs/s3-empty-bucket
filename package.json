@@ -1,6 +1,6 @@
 {
   "name": "s3-empty-bucket",
-  "version": "1.0.0-alpha.4",
+  "version": "1.0.0-alpha.5",
   "description": "Library and CLI to quickly empty AWS S3 buckets.",
   "main": "dist/s3-empty-bucket.js",
   "scripts": {
@@ -21,7 +21,14 @@
   "engines": {
     "node": ">=18.0.0"
   },
-  "keywords": [ "bucket", "clean", "empty", "flush", "s3", "truncate" ],
+  "keywords": [
+    "bucket",
+    "clean",
+    "empty",
+    "flush",
+    "s3",
+    "truncate"
+  ],
   "author": "Zane Rockenbaugh <zane@liquid-labs.com>",
   "license": "UNLICENSED",
   "repository": "git+ssh://git@github.com/liquid-labs/s3-empty-bucket.git",
