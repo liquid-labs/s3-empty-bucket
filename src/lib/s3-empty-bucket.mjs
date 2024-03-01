@@ -1,9 +1,10 @@
 import { DeleteObjectsCommand, ListObjectsCommand } from '@aws-sdk/client-s3'
 
-const emptyBucket = async ({ bucketName, s3Client }) => {
+const emptyBucket = async ({ bucketName, s3Client, verbose }) => {
   const objects = []
   let marker, isTruncated
-  process.stdout.write('Cataloging files...\n')
+
+  maybeSay('Cataloging files...\n', verbose)
   do {
     const listObjectsCommand = new ListObjectsCommand({ Bucket : bucketName, Marker : marker })
     const listObjectsResult = await s3Client.send(listObjectsCommand)
@@ -15,11 +16,11 @@ const emptyBucket = async ({ bucketName, s3Client }) => {
   } while (isTruncated === true)
 
   if (objects.length === 0) {
-    process.stdout.write('Bucket already empty.\n')
+    maybeSay('Bucket already empty.\n', verbose)
     return
   }
 
-  process.stdout.write(`Deleting ${objects.length} files...\n`)
+  maybeSay(`Deleting ${objects.length} files...\n`, verbose)
 
   const input = {
     Bucket : bucketName,
@@ -32,7 +33,13 @@ const emptyBucket = async ({ bucketName, s3Client }) => {
   const deleteObjectsCommand = new DeleteObjectsCommand(input)
   await s3Client.send(deleteObjectsCommand)
 
-  process.stdout.write('Done!\n')
+  maybeSay('Done!\n', verbose)
+}
+
+const maybeSay = (message, verbose) => {
+  if (verbose === true) {
+    process.stdout.write(message)
+  }
 }
 
 export { emptyBucket }
