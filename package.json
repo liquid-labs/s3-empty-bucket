@@ -29,7 +29,9 @@
   "dependencies": {
     "@aws-sdk/client-s3": "^3.525.0",
     "@aws-sdk/credential-providers": "^3.525.0",
-    "command-line-args": "^5.2.1"
+    "command-line-args": "^5.2.1",
+    "command-line-documentation": "^1.0.0-alpha.3",
+    "command-line-usage": "^7.0.1"
   },
   "devDependencies": {
     "@liquid-labs/sdlc-resource-babel-and-rollup": "^1.0.0-alpha.8",
