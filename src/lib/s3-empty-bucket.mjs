@@ -3,16 +3,22 @@ import { DeleteObjectsCommand, ListObjectsCommand } from '@aws-sdk/client-s3'
 const emptyBucket = async ({ bucketName, s3Client }) => {
   const objects = []
   let marker, isTruncated
-  process.stdout.write('Cataloging files...')
+  process.stdout.write('Cataloging files...\n')
   do {
     const listObjectsCommand = new ListObjectsCommand({ Bucket : bucketName, Marker : marker })
     const listObjectsResult = await s3Client.send(listObjectsCommand)
 
-    const contents = listObjectsResult.Contents;
+    const contents = listObjectsResult.Contents || [];
     ({ IsTruncated: isTruncated, Marker: marker } = listObjectsResult)
 
     objects.push(...contents)
   } while (isTruncated === true)
+
+  if (objects.length === 0) {
+    process.stdout.write('Bucket already empty.\n')
+    return
+  }
+
   process.stdout.write(`Deleting ${objects.length} files...\n`)
 
   const input = {
