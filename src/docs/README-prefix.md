@@ -15,10 +15,10 @@ While we expect this library to work in most cases, it has not been extensively 
 
 To install the library:
 ```bash
-npm i s3-empty-bucket
+npm i --omit peer s3-empty-bucket # peer deps only needed for CLI
 ```
 
-To install the CLI:
+To install the CLI (globally):
 ```bash
 npm i -g s3-empty-bucket
 ```
