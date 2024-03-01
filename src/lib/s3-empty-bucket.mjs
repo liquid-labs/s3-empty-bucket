@@ -1,5 +1,12 @@
 import { DeleteObjectsCommand, ListObjectsCommand } from '@aws-sdk/client-s3'
 
+/**
+ * Empties AWS S3 bucket.
+ * @param {object} options - The destructured options object.
+ * @param {string} options.bucketName - The name of the bucket to empty.
+ * @param {object} options.s3Client - Authenticated `S3Client`.
+ * @param {boolean} options.verbose - When true, will report actions to `process.stdout`.
+ */
 const emptyBucket = async ({ bucketName, s3Client, verbose }) => {
   const objects = []
   let marker, isTruncated

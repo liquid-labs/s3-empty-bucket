@@ -1,7 +1,7 @@
 {
   "name": "s3-empty-bucket",
   "version": "1.0.0-alpha.2",
-  "description": "",
+  "description": "Library and CLI to quickly empty AWS S3 buckets.",
   "main": "dist/s3-empty-bucket.js",
   "scripts": {
     "build": "make",
@@ -29,12 +29,16 @@
   "dependencies": {
     "@aws-sdk/client-s3": "^3.525.0",
     "@aws-sdk/credential-providers": "^3.525.0",
-    "command-line-args": "^5.2.1"
+    "command-line-args": "^5.2.1",
+    "command-line-documentation": "^1.0.0-alpha.3",
+    "command-line-usage": "^7.0.1"
   },
   "devDependencies": {
     "@liquid-labs/sdlc-resource-babel-and-rollup": "^1.0.0-alpha.8",
     "@liquid-labs/sdlc-resource-eslint": "file:.yalc/@liquid-labs/sdlc-resource-eslint",
-    "@liquid-labs/sdlc-resource-jest": "^1.0.0-alpha.7"
+    "@liquid-labs/sdlc-resource-jest": "^1.0.0-alpha.7",
+    "dmd-readme-api": "^1.0.0-beta.2",
+    "jsdoc-to-markdown": "^8.0.1"
   },
   "_comply": {
     "orgKey": "@liquid-labs"
