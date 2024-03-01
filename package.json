@@ -21,7 +21,7 @@
   "engines": {
     "node": ">=18.0.0"
   },
-  "keywords": [],
+  "keywords": [ "bucket", "clean", "empty", "flush", "s3", "truncate" ],
   "author": "Zane Rockenbaugh <zane@liquid-labs.com>",
   "license": "UNLICENSED",
   "repository": "git+ssh://git@github.com/liquid-labs/s3-empty-bucket.git",
