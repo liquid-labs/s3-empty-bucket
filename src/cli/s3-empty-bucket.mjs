@@ -32,7 +32,7 @@ const s3EmptyBucket = async () => {
   const { bucketName, document: doDocument, help, profile, quiet } = options
   const throwError = options['throw-error']
 
-  if (help === true) {
+  if (help === true || Object.keys(options).length === 0) {
     handleHelp()
     return
   }
