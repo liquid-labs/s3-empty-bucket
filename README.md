@@ -77,6 +77,7 @@ Empties AWS S3 bucket.
 |Option|Description|
 |------|------|
 |`[bucketName]`|(_main argument_,_required_) The name of the bucket to empty.|
+|`--delete`|Deletes the bucket after emptying it.|
 |`--document`|Generates command line documentation in Markdown format. All other options are ignored.|
 |`--help`, `-?`|Prints command help.|
 |`--profile`, `-p`|The SSO profile to use.|

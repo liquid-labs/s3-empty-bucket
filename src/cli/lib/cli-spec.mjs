@@ -2,6 +2,7 @@ export const cliSpec = {
   mainCommand : 's3-empty-bucket',
   mainOptions : [
     { name : 'bucketName', required : true, defaultOption : true, description : 'The name of the bucket to empty.' },
+    { name : 'delete', description : 'Deletes the bucket after emptying it.', type : Boolean },
     {
       name        : 'document',
       type        : Boolean,

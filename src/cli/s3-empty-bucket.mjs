@@ -15,7 +15,7 @@ const s3EmptyBucket = async () => {
   } catch (e) {
     handleError(e, false /* do not throw error */)
   }
-  const { bucketName, document: doDocument, help, profile, quiet } = options
+  const { bucketName, delete: doDelete, document: doDocument, help, profile, quiet } = options
   const throwError = options['throw-error']
 
   if (help === true || Object.keys(options).length === 0) {
@@ -30,7 +30,7 @@ const s3EmptyBucket = async () => {
     const credentials = getCredentials({ ssoProfile : profile })
     const s3Client = new S3Client({ credentials })
 
-    await emptyBucket({ bucketName, s3Client, verbose : !quiet })
+    await emptyBucket({ bucketName, doDelete, s3Client, verbose : !quiet })
   } catch (e) {
     handleError(e, throwError)
   }
