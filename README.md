@@ -60,11 +60,12 @@ Empties AWS S3 bucket.
 | --- | --- | --- |
 | options | `object` | The destructured options object. |
 | options.bucketName | `string` | The name of the bucket to empty. |
+| options.doDelete | `boolean` | If true, then deletes the bucket after emptying it. |
 | options.s3Client | `object` | Authenticated `S3Client`. |
 | options.verbose | `boolean` | When true, will report actions to `process.stdout`. |
 
 
-[**Source code**](./src/lib/s3-empty-bucket.mjs#L10)
+[**Source code**](./src/lib/s3-empty-bucket.mjs#L11)
 
 ## CLI command reference
 
