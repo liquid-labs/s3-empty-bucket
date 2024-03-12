@@ -4,6 +4,7 @@ import { DeleteBucketCommand, DeleteObjectsCommand, ListObjectsCommand } from '@
  * Empties AWS S3 bucket.
  * @param {object} options - The destructured options object.
  * @param {string} options.bucketName - The name of the bucket to empty.
+ * @param {boolean} options.doDelete - If true, then deletes the bucket after emptying it.
  * @param {object} options.s3Client - Authenticated `S3Client`.
  * @param {boolean} options.verbose - When true, will report actions to `process.stdout`.
  */
@@ -24,8 +25,7 @@ const emptyBucket = async ({ bucketName, doDelete, s3Client, verbose }) => {
 
   if (objects.length === 0) {
     maybeSay('Bucket already empty.\n', verbose)
-  }
-  else {
+  } else {
     maybeSay(`Deleting ${objects.length} files...\n`, verbose)
 
     const input = {
@@ -42,7 +42,7 @@ const emptyBucket = async ({ bucketName, doDelete, s3Client, verbose }) => {
 
   if (doDelete === true) {
     maybeSay(`Deleting bucket '${bucketName}'...\n`)
-    const deleteBucketCommand = new DeleteBucketCommand({ Bucket: bucketName })
+    const deleteBucketCommand = new DeleteBucketCommand({ Bucket : bucketName })
     await s3Client.send(deleteBucketCommand)
   }
 
