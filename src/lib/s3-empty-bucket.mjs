@@ -1,4 +1,4 @@
-import { DeleteObjectsCommand, ListObjectsCommand } from '@aws-sdk/client-s3'
+import { DeleteBucketCommand, DeleteObjectsCommand, ListObjectsCommand } from '@aws-sdk/client-s3'
 
 /**
  * Empties AWS S3 bucket.
@@ -7,7 +7,7 @@ import { DeleteObjectsCommand, ListObjectsCommand } from '@aws-sdk/client-s3'
  * @param {object} options.s3Client - Authenticated `S3Client`.
  * @param {boolean} options.verbose - When true, will report actions to `process.stdout`.
  */
-const emptyBucket = async ({ bucketName, s3Client, verbose }) => {
+const emptyBucket = async ({ bucketName, doDelete, s3Client, verbose }) => {
   const objects = []
   let marker, isTruncated
 
@@ -24,21 +24,27 @@ const emptyBucket = async ({ bucketName, s3Client, verbose }) => {
 
   if (objects.length === 0) {
     maybeSay('Bucket already empty.\n', verbose)
-    return
+  }
+  else {
+    maybeSay(`Deleting ${objects.length} files...\n`, verbose)
+
+    const input = {
+      Bucket : bucketName,
+      Delete : {
+        Objects : objects.map(({ Key }) => ({ Key }))
+      },
+      Quiet : true
+    }
+
+    const deleteObjectsCommand = new DeleteObjectsCommand(input)
+    await s3Client.send(deleteObjectsCommand)
   }
 
-  maybeSay(`Deleting ${objects.length} files...\n`, verbose)
-
-  const input = {
-    Bucket : bucketName,
-    Delete : {
-      Objects : objects.map(({ Key }) => ({ Key }))
-    },
-    Quiet : true
+  if (doDelete === true) {
+    maybeSay(`Deleting bucket '${bucketName}'...\n`)
+    const deleteBucketCommand = new DeleteBucketCommand({ Bucket: bucketName })
+    await s3Client.send(deleteBucketCommand)
   }
-
-  const deleteObjectsCommand = new DeleteObjectsCommand(input)
-  await s3Client.send(deleteObjectsCommand)
 
   maybeSay('Done!\n', verbose)
 }
