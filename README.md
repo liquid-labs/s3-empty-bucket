@@ -1,8 +1,6 @@
 # s3-empty-bucket
 
-___DO NOT USE FOR THE MOMENT.___ [There's a bug](https://github.com/liquid-labs/s3-empty-bucket/issues/21) in the code that may result in excessive API calls. We will address later today.
-
-Special notice ends.
+___This is alpha software.___ As far as we know and have tested, everything works, but this is alpha software. At the same time, it is supported software so file a bug or get support on [our discord channel](https://discord.gg/QWAav6fZ5C).
 
 --------
 

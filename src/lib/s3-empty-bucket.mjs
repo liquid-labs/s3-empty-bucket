@@ -9,23 +9,19 @@ import { DeleteBucketCommand, DeleteObjectsCommand, ListObjectsCommand } from '@
  * @param {boolean} options.verbose - When true, will report actions to `process.stdout`.
  */
 const emptyBucket = async ({ bucketName, doDelete, s3Client, verbose }) => {
-  const objects = []
   let marker, isTruncated
-
-  maybeSay('Cataloging files...\n', verbose)
   do {
+    maybeSay('Cataloging files...\n', verbose)
+    const objects = []
+
     const listObjectsCommand = new ListObjectsCommand({ Bucket : bucketName, Marker : marker })
     const listObjectsResult = await s3Client.send(listObjectsCommand)
 
     const contents = listObjectsResult.Contents || [];
-    ({ IsTruncated: isTruncated, Marker: marker } = listObjectsResult)
+    ({ IsTruncated: isTruncated } = listObjectsResult)
 
     objects.push(...contents)
-  } while (isTruncated === true)
 
-  if (objects.length === 0) {
-    maybeSay('Bucket already empty.\n', verbose)
-  } else {
     maybeSay(`Deleting ${objects.length} files...\n`, verbose)
 
     const input = {
@@ -36,9 +32,15 @@ const emptyBucket = async ({ bucketName, doDelete, s3Client, verbose }) => {
       Quiet : true
     }
 
-    const deleteObjectsCommand = new DeleteObjectsCommand(input)
-    await s3Client.send(deleteObjectsCommand)
-  }
+    if (objects.length === 0) { // this can only happen on the first call
+      maybeSay('Bucket already empty.\n', verbose)
+    } else {
+      const deleteObjectsCommand = new DeleteObjectsCommand(input)
+      await s3Client.send(deleteObjectsCommand)
+    }
+
+    marker = isTruncated === true ? objects[objects.length - 1].Key : undefined
+  } while (isTruncated === true)
 
   if (doDelete === true) {
     maybeSay(`Deleting bucket '${bucketName}'...\n`)
