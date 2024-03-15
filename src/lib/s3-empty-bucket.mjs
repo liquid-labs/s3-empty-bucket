@@ -9,7 +9,6 @@ import { DeleteBucketCommand, DeleteObjectsCommand, ListObjectsCommand } from '@
  * @param {boolean} options.verbose - When true, will report actions to `process.stdout`.
  */
 const emptyBucket = async ({ bucketName, doDelete, s3Client, verbose }) => {
-
   let marker, isTruncated
   do {
     maybeSay('Cataloging files...\n', verbose)
