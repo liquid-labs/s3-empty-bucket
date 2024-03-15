@@ -1,5 +1,11 @@
 # s3-empty-bucket
 
+___DO NOT USE FOR THE MOMENT.___ [There's a bug](https://github.com/liquid-labs/s3-empty-bucket/issues/21) in the code that may result in excessive API calls. We will address later today.
+
+Special notice ends.
+
+--------
+
 Library and CLI to quickly empty AWS S3 buckets.
 
 While we expect this library to work in most cases, it has not been extensively tested. However, we actively support this library so please [submit any issues](https://github.com/liquid-labs/s3-empty-bucket/issues) and we'll be happy to look into it.
